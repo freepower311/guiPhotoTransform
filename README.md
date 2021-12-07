@@ -17,3 +17,11 @@
 
     python main.py
 
+## Генерация exe для Windows (по желанию)
+У меня получился exe файл размером 80Мб, который запускается несколько секунд. Учитывая функциональность приложения, оно того не стоит...
+
+    pip install pyinstaller
+    mkdir build
+    cd build
+    pyinstaller.exe --onefile --noconsole  ..\main.py
+
