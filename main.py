@@ -59,8 +59,10 @@ class ExampleApp(QMainWindow):
         self._ui.saveButton.setEnabled(True)
 
     def open_file(self):
-        file, _ = QFileDialog.getOpenFileName(self, 'Open File', './', "Image (*.png *.jpg *jpeg)")
-        self._raw_image = cv2.imread(file)
+        file_path, _ = QFileDialog.getOpenFileName(self, 'Open File', './', "Image (*.png *.jpg *jpeg)")
+        if len(file_path) == 0:
+            return
+        self._raw_image = cv2.imread(file_path)
         self._current_image = self._raw_image.copy()
         self.show_image()
         self._ui.resetTransformButton.setEnabled(False)
@@ -69,8 +71,9 @@ class ExampleApp(QMainWindow):
 
     def save_image(self):
         if self._current_image is not None:
-            path, _ = QFileDialog.getSaveFileName(self, 'Save File', './', "Images (*.png *.jpg *jpeg)")
-            cv2.imwrite(path, self._current_image)
+            file_path, _ = QFileDialog.getSaveFileName(self, 'Save File', './', "Images (*.png *.jpg *jpeg)")
+            if len(file_path) > 0:
+                cv2.imwrite(file_path, self._current_image)
 
     def apply_transform(self):
         if self._current_image is None:
